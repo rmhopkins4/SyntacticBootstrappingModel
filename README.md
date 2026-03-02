@@ -2,8 +2,9 @@
 
 ## Rob's Notes
 - removed columns from gleason_data.csv that were unused and causing trouble with the dataframe
+  - kept `['child','sentenceid','verb','matrix','subj','obj','prep1','pobj1','prep2','pobj2','prep3','pobj3','comp','embtense','embsubj','embpred','sent','context']` columns
 - made requirements.txt, use `pip install -r requirements.txt` to install same versions
-
+- 
 
 ## Overview
 
