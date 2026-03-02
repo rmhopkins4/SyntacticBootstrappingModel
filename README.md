@@ -1,5 +1,10 @@
 # Syntactic bootstrapping model
 
+## Rob's Notes
+- removed columns from gleason_data.csv that were unused and causing trouble with the dataframe
+- made requirements.txt, use `pip install -r requirements.txt` to install same versions
+
+
 ## Overview
 
 This package implements the model of syntactic bootstrapping described in [Huang, White, Liao, Hacquard, & Lidz, 2021](https://doi.org/10.1080/10489223.2021.1934686) 
