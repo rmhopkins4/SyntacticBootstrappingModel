@@ -60,11 +60,11 @@ class MainClauseExperiment(object):
             return self._results_verbreps, self._results_projection, self._results_feature_probs
 
 def main():
-    import data, datamc
+    import data, datamc, dataep
     import argparse
     # Toggle language options. Note that the penalty has to be manually toggled in model.py
     parser = argparse.ArgumentParser(description='Run bootstrapping model.')
-    parser.add_argument('-l', '--language', action='store', choices=['en', 'mc'], default='en', help='Set language')
+    parser.add_argument('-l', '--language', action='store', choices=['en', 'mc', 'ep'], default='en', help='Set language')
     lg = parser.parse_args().language
     print('Language selected:\t', lg)
     
@@ -72,6 +72,8 @@ def main():
         data = data.main()
     elif lg == 'mc':
         data = datamc.main()
+    elif lg == 'ep':
+        data = dataep.main()
     
     exp = MainClauseExperiment(data)
     exp.run()
@@ -79,7 +81,9 @@ def main():
     verbreps, projection, results_feature_probs = exp.results
 
     verbs = ['want', 'see', 'know', 'think', 'say', 'like', 'tell', 'try', 'need', 'remember',
-             'DECLARATIVE', 'IMPERATIVE', '要', '看', '说', '讲', '想', '知道', '喜欢', '告诉', '觉得','准备']
+             'DECLARATIVE', 'IMPERATIVE', '要', '看', '说', '讲', '想', '知道', '喜欢', '告诉', '觉得','准备',
+             'achar', 'conseguir', 'deixar', 'dizer', 'gostar', 'lembrar', 'mandar', 'pensar', 'precisar', 'querer', 'saber', 'tentar', 'ver', 
+             ]
 			 # Chinese:
 			 # 'DECLARATIVE', 'IMPERATIVE', 'yao want', 'kan see', 'shuo say', 'jiang say, tell', 'xiang think/want', 'zhidao know', 'xihuan like', 'gaosu tell', 'juede feel', 'zhunbei get ready to'
     

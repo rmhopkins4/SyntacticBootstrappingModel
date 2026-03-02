@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from pytensor import shared
+from theano import shared
 from patsy import dmatrix
 
 class MainClauseData(object):
@@ -47,8 +47,8 @@ class MainClauseData(object):
             self._append_mainclause_features()
 
         else:
-            #self._data = self._data.drop('clausetype', axis=1)
-            self._nclausetype = 0
+            self._data = self._data.drop('clausetype', axis=1)
+            self._nclausetypes = 0
             
         self._convert_idvars_to_category()
         self._convert_features_to_dummies(feature_interactions,
@@ -135,14 +135,16 @@ class MainClauseData(object):
     def sentence(self, idx):
         return np.where(self._data.sentenceid==idx)[0].astype(np.int32)
     
-def main(datapath='../bin/data/dataEP.csv', featurepath='../bin/data/mainclause_features.csv',
+def main(datapath='../bin/data/dataEP_clean.csv', featurepath='../bin/data/mainclause_features.csv',
          separate_children=False):
     d = pd.read_csv(datapath)
     f = pd.read_csv(featurepath) 
     ## Note that feature file here actually plays no role. 
     ## For the English model, the feature file specifies the features for main clauses.
     ## For the Mandarin model, these features are already specified in the data file.
+    
     ## Eliz: changed separate_children to false, not sure if it'll need to be true to run
+    # (There is only one child in the dummy data from EP)
     
     ## d['sentenceid'] = d.child+d.sentenceid.astype(str)
     d['sentenceid'] = d.sentenceid.astype(str)
@@ -188,8 +190,8 @@ def main(datapath='../bin/data/dataEP.csv', featurepath='../bin/data/mainclause_
             data[c] = MainClauseData(d[d.child==c], f)
 
     else:
-        #d = preprocess_features(d)
-        data = {'dummy_child': MainClauseData(d)}
+        # d = preprocess_features(d) (only necessary for Gleason)
+        data = {'dummy_child': MainClauseData(d, f)}
             
     return data
 
